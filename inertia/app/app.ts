@@ -7,7 +7,7 @@ import type { DefineComponent } from 'vue'
 import { createInertiaApp } from '@inertiajs/vue3'
 import { resolvePageComponent } from '@adonisjs/inertia/helpers'
 import {   Link } from '@inertiajs/vue3'
-
+import  MessageError  from "../pages/components/MessageError.vue";
 const appName = import.meta.env.VITE_APP_NAME || 'AdonisJS'
 
 createInertiaApp({
@@ -28,6 +28,7 @@ createInertiaApp({
     
       .use(plugin)
       .component('Link', Link)
+      .component('MessageError', MessageError)
       .mount(el)
   },
 })

@@ -1,21 +1,35 @@
 
 <template>
     <div class="container">
-      <div class="title"> <span>Title : {{  post.title }}</span></div>
-      <span> Contenue : {{  post.content }}</span>
+      <div class="title"> <span>Title : {{  form.title }}</span></div>
       <div class="mb-3">
         <form >
             <div class="mb-3">
                 <input type="text" class="form-control" v-model="form.title">
+                <MessageError :messageError="form.errors.title" />
             </div>
             <div class="mb-3">
-            <label for="" class="form-label">Example textarea</label>
+            <label for="" class="form-label">Contenue</label>
                 <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" v-model="form.content"></textarea>
+                <MessageError :messageError="form.errors.content" />
+            </div>
+            <div class="mb-3" v-if="post.imageUrl">
+                <img :src="post.imageUrl" class="rounded mx-auto d-block" style="max-height: 161px;" :alt="post.title">
             </div>
             <div class="mb-3">
-                <input type="file" class="form-control form-control-sm" @input="file =  form.image = $event.target.files[0] ; " />
+                <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="flexCheckDefault" :checked="post.online  == 1 ? true : false">
+                <label class="form-check-label" for="flexCheckDefault">
+                  En ligne ?
+                </label>
+                </div>
+                <MessageError :messageError="form.errors.image" />
             </div>
-            <progress v-if="form.progress" :value="form.progress.percentage" max="100">
+            <div class="mb-3">
+                <input type="file" class="form-control form-control-sm"  @input="file =  form.image = $event.target.files[0] ; " />
+                <MessageError :messageError="form.errors.image" />
+            </div>
+            <progress v-if="form.progress && !form.errors.image " :value="form.progress.percentage" max="100">
                 {{ form.progress.percentage }}%
             </progress>
             <div class="mb-3">
@@ -47,6 +61,7 @@ import { useForm } from '@inertiajs/vue3'
         }
       },
       async  mounted() {
+        console.log(this.post);
         if (this.post) {
             this.updateForm(this.post)
         }
@@ -61,7 +76,7 @@ import { useForm } from '@inertiajs/vue3'
             this.form = useForm(data)
         },
         submitForm() {
-            console.log( this.file);
+            this.form.clearErrors()
             this.form.transform((data) => ({...data,  image: this.file})).post(app.baseUrl + '/update/article');
         }
     }

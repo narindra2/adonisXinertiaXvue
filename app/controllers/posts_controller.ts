@@ -4,7 +4,9 @@ import app from '@adonisjs/core/services/app'
 import type { HttpContext } from '@adonisjs/core/http'
 // import transmit from '@adonisjs/transmit/services/main'
 // import emitter from '@adonisjs/core/services/emitter'
-import { cuid } from '@adonisjs/core/helpers'
+import {createPostValidator } from '#validators/postValidationRequest'
+import { generateImageNameUsingCuid, generateImagNameWithPath, POST_IMAGE_URL } from '../helpers/global.js'
+
 export default class PostsController {
     async index({ inertia }: HttpContext) {
         const version = 6;
@@ -12,24 +14,23 @@ export default class PostsController {
         return inertia.render('posts/index', { posts , version  })
     }
     async show({ inertia  , params }: HttpContext) {
-        const post = await Post.findOrFail(params.id)
+        var post = await Post.findOrFail(params.id)
         // emitter.emit('post:consulted', post)
-        
         return inertia.render('posts/show', { post})
     }
+    /** uo */
     async update({   response, request}: HttpContext) {
-        const image = await request.file('image',{
-            size: '2mb',
-            extnames: ['gif'],
-          });
-        const path = 'public/post/images';
-        let imagePath = null;
+        await request.validateUsing(createPostValidator)
+        const image = await request.file('image');
+        let imagePath = "null";
         if (image) {
-            const imageName = cuid() +"." +image.extname;
-            await image.move(app.makePath(path) ,{name :  path + "/" + imageName});
-            imagePath = path + "/" + imageName;
+            const imageName = generateImageNameUsingCuid(image.extname);
+            await image.move(app.makePath(POST_IMAGE_URL) ,{name :  imageName});
+            imagePath = generateImagNameWithPath(POST_IMAGE_URL ,imageName);
         }
-        const post = await Post.updateOrCreate({ id : request.input("id") }, { ...request.except(["id" , "updatedAt" ,"createdAt"]) , ...{image : imagePath } })
+       
+        const post = await Post.updateOrCreate({ id : request.input("id") }, { ...request.only(["title" , " content" ,"online"]) , ...{image : imagePath } })
+
         return response.redirect().status(301).toRoute('article.show', { id: post.id })
     }
 }

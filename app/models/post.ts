@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon'
-import { BaseModel, column } from '@adonisjs/lucid/orm'
-
+import { BaseModel, column  ,computed   } from '@adonisjs/lucid/orm'
+import env from '#start/env'
 export default class Post extends BaseModel {
   @column({ isPrimary: true })
   declare id: number
@@ -20,4 +20,12 @@ export default class Post extends BaseModel {
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   declare updatedAt: DateTime
+ 
+  @computed()
+  public  get imageUrl() {
+    if (this.image) {
+      return env.get("ASSET_URL") +"/" + this.image 
+    }
+  }
+  
 }
