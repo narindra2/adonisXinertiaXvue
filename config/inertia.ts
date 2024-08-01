@@ -1,3 +1,4 @@
+import User from '#models/user'
 import { defineConfig } from '@adonisjs/inertia'
 import type { InferSharedProps } from '@adonisjs/inertia/types'
 
@@ -12,6 +13,23 @@ const inertiaConfig = defineConfig({
    */
   sharedData: {
     errors: (ctx) => ctx.session?.flashMessages.get('errors'),
+    authUser : async (ctx) =>  {
+      try {
+        const authUser = await ctx.auth.authenticate()
+       const user = await User.find(authUser.id)
+      if (user) {
+         return user.serialize({
+          fields: {
+            pick: ['fullName', 'email',"id"],
+          },
+        })
+      }
+      return null
+      } catch (error) {
+        return null
+      }
+      
+    } 
   },
 
   /**
