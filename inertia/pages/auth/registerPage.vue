@@ -1,12 +1,12 @@
 <template>
     <div class="container">
         <form>
-            <div class="form-group">
+            <div class="form-group mb-2">
                 <label for="exampleInputEmail1">Name</label>
                 <input type="text" class="form-control"  placeholder="Name" v-model="formData.fullName">
                 <MessageError :messageError="formData.errors.fullName" />
             </div>
-            <div class="form-group">
+            <div class="form-group mb-2">
                 <label for="Email1">Email address</label>
                 <input type="email" class="form-control"  placeholder="Enter email" v-model="formData.email">
                 <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>

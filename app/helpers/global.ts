@@ -1,10 +1,10 @@
 
 import { cuid } from '@adonisjs/core/helpers'
 
-export const generateImageNameUsingCuid = (extension : string | undefined) => {
+export const generateFileNameUsingCuid = (extension : string | undefined) => {
     return cuid() +"." + extension;
 };
-export const generateImagNameWithPath = (path : string , image : string) => {
+export const generateFilePath = (path : string , image : string) => {
     return path + "/" + image;
 };
 

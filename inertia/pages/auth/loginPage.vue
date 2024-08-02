@@ -1,13 +1,13 @@
 <template>
     <div class="container">
-        <form>
+        <form @submit.prevent="submitLoginForm()">
             
-            <div class="form-group">
+            <div class="form-group mb-2">
                 <label for="exampleInputEmail1">Email address</label>
                 <input type="email" class="form-control"  placeholder="Enter email" v-model="formData.email">
                 <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone else.</small>
             </div>
-            <div class="form-group">
+            <div class="form-group mb-2">
                 <label for="exampleInputPassword1">Password</label>
                 <input type="password" class="form-control" v-model="formData.password" placeholder="Password">
             </div>
@@ -16,7 +16,11 @@
                 <label class="form-check-label" for="exampleCheck1">Check me out</label>
             </div>
             <MessageError v-show="!submiting" :messageError="messageError" />
-            <button type="button" @click="submitLoginForm()" class="btn btn-primary">Submit</button>
+            
+            <div class="row">
+                <dvi class="col-md-6 text-start"> <button type="button" @click="submitLoginForm()" class="btn btn-primary">Submit</button></dvi>
+                <dvi class="col-md-6 text-end"> <Link  href="/register"> Creer un compte </Link></dvi>
+           </div>
         </form>
     </div>
 </template>

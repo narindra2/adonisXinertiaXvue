@@ -1,17 +1,17 @@
 
 <template>
     <div class="container">
-      <div class="title"> <span>Title : {{  form.title }}</span></div>
+      <div class="title"> <span>Title : {{  formData.title }}</span></div>
       <div class="mb-3">
         <form >
             <div class="mb-3">
-                <input type="text" class="form-control" v-model="form.title">
-                <MessageError :messageError="form.errors.title" />
+                <input type="text" class="form-control" v-model="formData.title">
+                <MessageError :messageError="formData.errors.title" />
             </div>
             <div class="mb-3">
             <label for="" class="form-label">Contenue</label>
-                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" v-model="form.content"></textarea>
-                <MessageError :messageError="form.errors.content" />
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" v-model="formData.content"></textarea>
+                <MessageError :messageError="formData.errors.content" />
             </div>
             <div class="mb-3" v-if="post.imageUrl">
                 <img :src="post.imageUrl" class="rounded mx-auto d-block" style="max-height: 161px;" :alt="post.title">
@@ -23,27 +23,28 @@
                   En ligne ?
                 </label>
                 </div>
-                <MessageError :messageError="form.errors.image" />
             </div>
             <div class="mb-3">
-                <input type="file" class="form-control form-control-sm"  @input="file =  form.image = $event.target.files[0] ; " />
-                <MessageError :messageError="form.errors.image" />
+                <input type="file" class="form-control form-control-sm"  @input="file =  formData.image = $event.target.files[0] ; " />
+                <div class="progress mb-2" v-if="formData.progress && !formData.errors.image " style="height: 1px;">
+                    <div class="progress-bar" role="progressbar" :style="'width: ' + formData.progress.percentage + '%;'" :aria-valuenow="formData.progress.percentage" aria-valuemin="0" aria-valuemax="100"></div>
+                </div>
+                <MessageError :messageError="formData.errors.image" />
             </div>
-            <progress v-if="form.progress && !form.errors.image " :value="form.progress.percentage" max="100">
-                {{ form.progress.percentage }}%
-            </progress>
+            
+            
             <div class="mb-3">
                 <button type="button" @click="submitForm" class="btn btn-primary">Save</button>
             </div>
         </form>
         </div>
-       <Link  href="/articles"> Revenir à tout lesarticles</Link >.
+       <Link  href="#" onclick="history.back();return false;" > Revenir à tout lesarticles</Link >.
     </div>
   </template>
   <script>
-  import { Head} from '@inertiajs/vue3'
-  import { Transmit } from '@adonisjs/transmit-client'
-import { useForm } from '@inertiajs/vue3'
+    import { Head} from '@inertiajs/vue3'
+    import { Transmit } from '@adonisjs/transmit-client'
+    import { useForm } from '@inertiajs/vue3'
     export const transmit = new Transmit({
         baseUrl: window.location.origin
     })
@@ -53,7 +54,7 @@ import { useForm } from '@inertiajs/vue3'
         return {
             app :app ,
             file : null,
-            form : useForm({
+            formData : useForm({
                 title :null ,
                 content :null ,
                 image :null ,
@@ -73,11 +74,11 @@ import { useForm } from '@inertiajs/vue3'
     },
     methods : {
         updateForm(data = {}){
-            this.form = useForm(data)
+            this.formData = useForm(data)
         },
         submitForm() {
-            this.form.clearErrors()
-            this.form.transform((data) => ({...data,  image: this.file})).post(app.baseUrl + '/update/article');
+            this.formData.clearErrors()
+            this.formData.transform((data) => ({...data,  image: this.file})).post(app.baseUrl + '/update/article');
         }
     }
   }

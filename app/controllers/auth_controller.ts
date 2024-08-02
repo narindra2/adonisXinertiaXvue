@@ -1,9 +1,9 @@
 import { HttpContext } from '@adonisjs/core/http'
 import User from '#models/user'
 import { RegisterUserValidator } from '#validators/register_user'
-
+import { errors } from '@adonisjs/auth'
 export default class AuthController {
-    async login({    inertia ,auth,response  }: HttpContext) {
+    async login({inertia ,auth,response  }: HttpContext) {
         const check =  await auth.check();
         if (check) {
            return response.redirect('/')
@@ -17,7 +17,11 @@ export default class AuthController {
             await auth.use('web').login(user)
             return response.redirect('/articles')
         } catch (error) {
-            return inertia.render('auth/loginPage',{messageError  :"Invalid user credentials" })
+            if (error instanceof errors.E_INVALID_CREDENTIALS) {
+                return inertia.render('auth/loginPage',{messageError  :"Invalid user credentials" })
+            }else{
+                return inertia.render('auth/loginPage',{messageError  :error })
+            }
         }
       }
     async register({  inertia }: HttpContext) {

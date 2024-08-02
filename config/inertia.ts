@@ -13,23 +13,23 @@ const inertiaConfig = defineConfig({
    */
   sharedData: {
     errors: (ctx) => ctx.session?.flashMessages.get('errors'),
-    authUser : async (ctx) =>  {
+    authUser: async (ctx) => {
       try {
         const authUser = await ctx.auth.authenticate()
-       const user = await User.find(authUser.id)
-      if (user) {
-         return user.serialize({
-          fields: {
-            pick: ['fullName', 'email',"id"],
-          },
-        })
-      }
-      return null
+        const user = await User.find(authUser.id)
+        if (user) {
+          return user.serialize({
+            fields: {
+              pick: ['fullName', 'email', "id"],
+            },
+          })
+        }
+        return null
       } catch (error) {
         return null
       }
-      
-    } 
+
+    }
   },
 
   /**
@@ -44,5 +44,5 @@ const inertiaConfig = defineConfig({
 export default inertiaConfig
 
 declare module '@adonisjs/inertia/types' {
-  export interface SharedProps extends InferSharedProps<typeof inertiaConfig> {}
+  export interface SharedProps extends InferSharedProps<typeof inertiaConfig> { }
 }

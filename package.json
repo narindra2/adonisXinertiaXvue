@@ -65,6 +65,7 @@
     "@adonisjs/vite": "^3.0.0",
     "@inertiajs/vue3": "^1.2.0",
     "@vinejs/vine": "^2.1.0",
+    "adonis5-scheduler": "^2.1.1",
     "axios": "^1.7.2",
     "bootstrap": "^5.3.3",
     "edge.js": "^6.0.2",
@@ -72,7 +73,9 @@
     "luxon": "^3.4.4",
     "mysql2": "^3.10.3",
     "reflect-metadata": "^0.2.2",
-    "vue": "^3.4.34"
+    "vue": "^3.4.34",
+    "vue-toast-notification": "^3.1.2",
+    "vue-toastification": "^2.0.0-rc.5"
   },
   "hotHook": {
     "boundaries": [
