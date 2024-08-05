@@ -36,9 +36,12 @@
   </nav>
   </div>
 </template>
+
 <script>
+const socket = io()
 import { Head} from '@inertiajs/vue3'
 import { router } from '@inertiajs/vue3'
+import { useToast } from "vue-toastification";
 export default {
     props : ["posts", "version" ,"searchProps"],
     data () {
@@ -48,7 +51,16 @@ export default {
         }
     },
     mounted (){
-       console.log(this.posts);
+      setTimeout(() => {
+        socket.emit('a-user-consulted-list-post', { userId:  this.$page.props.authUser.id })
+      }, 1000);
+      socket.on('welcome', function(data) {
+          const toast = useToast();
+          toast(data.message);
+      });
+    },
+    unmounted(){
+      socket.emit('a-user-leaved-list-post', { userId:  this.$page.props.authUser.id })
     },
     methods  : {
       searchArticle(term = ""){

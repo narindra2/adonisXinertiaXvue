@@ -73,6 +73,7 @@
     "luxon": "^3.4.4",
     "mysql2": "^3.10.3",
     "reflect-metadata": "^0.2.2",
+    "socket.io": "^4.7.5",
     "vue": "^3.4.34",
     "vue-toast-notification": "^3.1.2",
     "vue-toastification": "^2.0.0-rc.5"

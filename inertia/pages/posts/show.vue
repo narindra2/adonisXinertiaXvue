@@ -62,7 +62,6 @@
         }
       },
       async  mounted() {
-        console.log(this.post);
         if (this.post) {
             this.updateForm(this.post)
         }
