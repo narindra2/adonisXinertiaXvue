@@ -3,7 +3,7 @@ import app from '@adonisjs/core/services/app'
 import type { HttpContext } from '@adonisjs/core/http'
 // import emitter from '@adonisjs/core/services/emitter'
 import {createPostValidator } from '#validators/create_post'
-import { generateFileNameUsingCuid, generateFilePath, POST_IMAGE_URL } from '../helpers/global.js'
+import { generateFileNameUsingCuid, generateFilePath, POST_FILES_URL } from '../helpers/global.js'
 
 export default class PostsController {
     async index({ inertia , auth ,response ,request}: HttpContext) {
@@ -37,8 +37,8 @@ export default class PostsController {
         let imagePath = "null";
         if (image) {
             const imageName = generateFileNameUsingCuid(image.extname);
-            await image.move(app.makePath(POST_IMAGE_URL) ,{name :  imageName});
-            imagePath = generateFilePath(POST_IMAGE_URL ,imageName);
+            await image.move(app.makePath(POST_FILES_URL) ,{name :  imageName});
+            imagePath = generateFilePath(POST_FILES_URL ,imageName);
         }
         const post = await Post.updateOrCreate({ id : request.input("id") }, { ...request.only(["title" , " content" ,"online"]) , ...{image : imagePath } })
         return response.redirect().status(301).toRoute('article.show', { id: post.id })

@@ -11,6 +11,9 @@ import { defineConfig } from '@adonisjs/core/http'
  * changed. Therefore it is recommended to keep the app key secure.
  */
 export const appKey = new Secret(env.get('APP_KEY'))
+export const baseUrl = env.get('APP_URL')
+export const assetUrl = env.get('ASSET_URL')
+export const appName = env.get('APP_NAME')
 
 /**
  * The configuration settings used by the HTTP server

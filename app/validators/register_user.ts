@@ -7,7 +7,14 @@ vine.convertEmptyStringsToNull = true
 export const RegisterUserValidator = vine.compile(
     vine.object({
         fullName: vine.string().minLength(4),
-        email: vine.string().email().minLength(6),
+        email: vine.string().email().unique(async (db, value, field) => {
+            const user = await db
+              .from('users')
+              .whereNot('id', field.meta.userId || 0)
+              .where('email', value)
+              .first()
+            return !user
+          }),
         password: vine.string().minLength(4),
     })
 )

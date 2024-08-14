@@ -8,4 +8,4 @@ export const generateFilePath = (path : string , image : string) => {
     return path + "/" + image;
 };
 
-export const POST_IMAGE_URL = 'public/post/images';
+export const POST_FILES_URL = 'public/post/images';

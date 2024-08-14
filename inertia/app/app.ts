@@ -16,7 +16,7 @@ import "vue-toastification/dist/index.css";
 // import { TYPE } from "vue-toastification";
 // const toast = useToast()
 const appName = import.meta.env.VITE_APP_NAME || 'AdonisJS'
-createInertiaApp({
+  createInertiaApp({
   progress: { color: '#5468FF' },
   title: (title) => `${title} - ${appName}`,
   resolve: (name) => {
@@ -35,11 +35,13 @@ createInertiaApp({
       .mount(el)
   },
 })
-var container = document.getElementsByClassName('container');
+
+var loading = document.getElementById('loading');
+
 // var  loadingToast  = toast.info("Chargement ...");;
 router.on('start', () => {
   // loadingToast = toast.info("Chargement ...");
-  container[0].style.opacity = "0.3";
+  loading.classList.remove("d-none");
   console.log("start ...");
 })
 // router.on('error', (errors) => {
@@ -48,16 +50,16 @@ router.on('start', () => {
 router.on('finish', (event) => {
    if (event.detail.visit.completed) {
     console.log("completed ...");
+    loading.classList.add("d-none");
     // toast.update(loadingToast, { content: "Completed !"  });
     // toast.update(loadingToast, { content: "Completed !" , options: { timeout: 5000 , type : "success" } });
-    container[0].style.opacity = "1";
   } else if (event.detail.visit.interrupted) {
     console.log("interrupted ...");
-    container[0].style.opacity = "1";
+    loading.classList.add("d-none");
     // toast.update(loadingToast, { content: "Interrupted ..." });
   } else if (event.detail.visit.cancelled) {
     console.log("cancelled ...");
-    container[0].style.opacity = "1";
+    loading.classList.add("d-none");
     // toast.update(loadingToast, { content: "Cancelled ..." });
   }
 //   setTimeout(() => {

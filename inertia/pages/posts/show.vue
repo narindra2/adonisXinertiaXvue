@@ -38,7 +38,7 @@
             </div>
         </form>
         </div>
-       <Link  href="#" onclick="history.back();return false;" > Revenir à tout lesarticles</Link >.
+       <Link  href="#" onclick="history.back();return false;" > Revenir à tout les articles</Link >.
     </div>
   </template>
   <script>

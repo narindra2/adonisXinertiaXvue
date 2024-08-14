@@ -14,7 +14,7 @@ app.ready(() => {
         console.log('user disconnected');
     });
     setTimeout(() => {
-        io.emit('welcome',{ message: 'welcome'});
+        io.emit('welcome',{ message: 'Welcome'});
     }, 1000);
     socket.on('a-user-consulted-list-post', (data) => {
         console.log('a-user-consulted-list-post', data)

@@ -1,6 +1,6 @@
 
 <template>
-  <div class="container mt-6">
+  <div class="container ">
     <div class="title">AdonisJS {{ version }} & Inertia & Vue.js 
       <template v-if="$page.props.authUser">
           avec {{  $page.props.authUser.fullName }}
@@ -59,9 +59,7 @@ export default {
           toast(data.message);
       });
     },
-    unmounted(){
-      socket.emit('a-user-leaved-list-post', { userId:  this.$page.props.authUser.id })
-    },
+  
     methods  : {
       searchArticle(term = ""){
         router.visit(this.app.baseUrl +"/articles?search="+term, {
