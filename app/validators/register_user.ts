@@ -16,5 +16,6 @@ export const RegisterUserValidator = vine.compile(
             return !user
           }),
         password: vine.string().minLength(4),
+        confirmPassword: vine.string().sameAs("password"),
     })
 )

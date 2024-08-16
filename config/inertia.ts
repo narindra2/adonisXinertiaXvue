@@ -16,13 +16,8 @@ const inertiaConfig = defineConfig({
     authUser: async (ctx) => {
       try {
         const authUser = await ctx.auth.authenticate()
-        const user = await User.find(authUser.id)
-        if (user) {
-          return user.serialize({
-            fields: {
-              pick: ['fullName', 'email', "id"],
-            },
-          })
+        if (authUser) {
+          return authUser.serialize({fields: { pick: ['fullName', 'email', "id"]},})
         }
         return null
       } catch (error) {

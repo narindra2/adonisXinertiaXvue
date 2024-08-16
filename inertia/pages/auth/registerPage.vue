@@ -1,4 +1,5 @@
 <template>
+    <Head title="Registration" />
     <div class="container">
         <form>
             <div class="form-group mb-2">

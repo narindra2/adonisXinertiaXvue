@@ -12,10 +12,11 @@ import { router } from '@inertiajs/vue3'
 import axios from '../../config/axios'
 import Toast from "vue-toastification"; //https://github.com/Maronato/vue-toastification?tab=readme-ov-file#installation
 import "vue-toastification/dist/index.css";
+import { Head } from '@inertiajs/vue3'
 // import { useToast } from 'vue-toastification'
 // import { TYPE } from "vue-toastification";
 // const toast = useToast()
-const appName = import.meta.env.VITE_APP_NAME || 'AdonisJS'
+const appName = app.appName
   createInertiaApp({
   progress: { color: '#5468FF' },
   title: (title) => `${title} - ${appName}`,
@@ -31,6 +32,7 @@ const appName = import.meta.env.VITE_APP_NAME || 'AdonisJS'
       .use(axios , {baseUrl : "http://localhost:3333"})
       .use(Toast)
       .component('Link', Link)
+      .component('Head', Head)
       .component('MessageError', MessageError)
       .mount(el)
   },

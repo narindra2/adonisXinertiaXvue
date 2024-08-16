@@ -3,7 +3,7 @@ import User from '#models/user'
 import { RegisterUserValidator } from '#validators/register_user'
 import { errors } from '@adonisjs/auth'
 export default class AuthController {
-    async login({inertia ,auth,response  }: HttpContext) {
+    async login({inertia ,auth,response }: HttpContext) {
         const check =  await auth.check();
         if (check) {
            return response.redirect('/')

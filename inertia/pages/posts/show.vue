@@ -1,5 +1,6 @@
 
 <template>
+    <Head title="Registration" />
     <div class="container">
       <div class="title"> <span>Title : {{  formData.title }}</span></div>
       <div class="mb-3">
@@ -26,13 +27,11 @@
             </div>
             <div class="mb-3">
                 <input type="file" class="form-control form-control-sm"  @input="file =  formData.image = $event.target.files[0] ; " />
-                <div class="progress mb-2" v-if="formData.progress && !formData.errors.image " style="height: 1px;">
+                <div class="progress mb-2 mt-2" v-if="formData.progress && !formData.errors.image " style="height: 1px;">
                     <div class="progress-bar" role="progressbar" :style="'width: ' + formData.progress.percentage + '%;'" :aria-valuenow="formData.progress.percentage" aria-valuemin="0" aria-valuemax="100"></div>
                 </div>
                 <MessageError :messageError="formData.errors.image" />
             </div>
-            
-            
             <div class="mb-3">
                 <button type="button" @click="submitForm" class="btn btn-primary">Save</button>
             </div>
@@ -42,7 +41,6 @@
     </div>
   </template>
   <script>
-    import { Head} from '@inertiajs/vue3'
     import { Transmit } from '@adonisjs/transmit-client'
     import { useForm } from '@inertiajs/vue3'
     export const transmit = new Transmit({

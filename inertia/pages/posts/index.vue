@@ -1,5 +1,6 @@
 
 <template>
+  <Head title="Post list" />
   <div class="container ">
     <div class="title">AdonisJS {{ version }} & Inertia & Vue.js 
       <template v-if="$page.props.authUser">
@@ -36,10 +37,8 @@
   </nav>
   </div>
 </template>
-
 <script>
 const socket = io()
-import { Head} from '@inertiajs/vue3'
 import { router } from '@inertiajs/vue3'
 import { useToast } from "vue-toastification";
 export default {
