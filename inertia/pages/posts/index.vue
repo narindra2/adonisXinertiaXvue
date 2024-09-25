@@ -1,7 +1,7 @@
 
 <template>
   <Head title="Post list" />
-  <div class="container ">
+  <div class="container mt-10">
     <div class="title">AdonisJS {{ version }} & Inertia & Vue.js 
       <template v-if="$page.props.authUser">
           avec {{  $page.props.authUser.fullName }}
@@ -18,13 +18,28 @@
     </span>
     <input class="form-control col-md-6 w-50 mt-2 mb-3" type="search" v-model="search" placeholder="Rechecher ...">
     <small v-if="search && posts && posts.meta.total" id="emailHelp" class="form-text text-muted mb-2">{{ posts.meta.total }} resultat  trouvées.</small>
-    <ul>
-        <template v-for="post in posts.data" :key="post.id">
-            <div>
-                <Link  :href="'/article/'+ post.id"> <li> {{ post.title }}</li> </Link>.  
+    <div class="row">
+      <template v-for="post in posts.data" :key="post.id">
+          <div class="col-md-12 mb-2">
+            <div class="card" style="height: 200px;">
+              <div class="card-body">
+               <div class="row">
+                <div class="col-md-6">
+                    <h5 class="card-title"><Link  :href="'/article/'+ post.id">  {{ post.title }} </Link> </h5>
+                    <p class="card-text">{{ post.content }}</p>
+              
+                    <p> <i>{{ post.createdAt }}</i></p>
+                </div>
+                <div class="col-md-6">
+                  <img  v-if="post.image" lass="rounded mx-auto d-block" style="max-height: 161px;object-fit: contain;max-width: inherit;" :src="post.imageUrl" alt="Card image cap">
+                </div>
+               </div>
+              </div>
+             
             </div>
-        </template>
-    </ul>
+          </div>
+      </template>
+    </div>
     <nav aria-label="Page navigation example" v-if="posts && posts.data && posts.data.length ">
       <ul class="pagination">
         <li v-if="posts.meta.previousPageUrl" class="page-item"><Link class="page-link" :href="posts.meta.previousPageUrl+'&search='+search">Previous</Link></li>
@@ -50,6 +65,8 @@ export default {
         }
     },
     mounted (){
+      console.log(this.posts);
+      
       setTimeout(() => {
         socket.emit('a-user-consulted-list-post', { userId:  this.$page.props.authUser.id })
       }, 1000);

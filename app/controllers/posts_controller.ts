@@ -21,7 +21,7 @@ export default class PostsController {
             query.where('title', 'like', `%${search}%`)
             query.orWhere('content', 'like', `%${search}%`)
         })
-        .paginate(page, 10)
+        .paginate(page, 2)
         posts.baseUrl('/articles');
         return inertia.render('posts/index', { posts , version ,searchProps :search  })
     }

@@ -11,6 +11,15 @@ import router from '@adonisjs/core/services/router'
 import { middleware } from '#start/kernel'
 const PostsController = () => import('#controllers/posts_controller')
 const AuthController = () => import('#controllers/auth_controller')
+const AuthApiController = () => import('#controllers/api/auth_api_controller')
+
+
+router.group(() => {
+  router.post('singin', [AuthApiController, 'singin'])
+}).prefix('/api')
+router.group(() => {
+  router.post('ping', [AuthApiController, 'ping'])
+}).prefix('/api')
 
 router.get('/', [PostsController, 'index'])
 router.on('/test').renderInertia('home', { version: 8 })
@@ -26,4 +35,6 @@ router.group(() => {
     router.get('/articles', [PostsController, 'index']).as("articles")
     router.get('/article/:id', [PostsController, 'show']).as('article.show')
     router.post('/update/article', [PostsController, 'update'])
-  }).use(middleware.auth())
+}).use(middleware.auth())
+
+

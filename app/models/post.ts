@@ -15,7 +15,11 @@ export default class Post extends BaseModel {
   @column()
   declare  catId : number | null
 
-  @column.dateTime({ autoCreate: true })
+  @column.dateTime({ 
+    autoCreate: true ,
+    serialize: (value: DateTime | null) => {
+    return value ? value.toRelative() : value
+  },})
   declare createdAt: DateTime
 
   @column.dateTime({ autoCreate: true, autoUpdate: true })
