@@ -15,11 +15,13 @@ const AuthApiController = () => import('#controllers/api/auth_api_controller')
 
 
 router.group(() => {
-  router.post('singin', [AuthApiController, 'singin'])
-}).prefix('/api')
-router.group(() => {
+  router.post('sigin', [AuthApiController, 'sigin'])
+  router.post('signup', [AuthApiController, 'signup'])
+  router.get('ping', [AuthApiController, 'ping'])
   router.post('ping', [AuthApiController, 'ping'])
-}).prefix('/api')
+
+}).prefix('api')
+
 
 router.get('/', [PostsController, 'index'])
 router.on('/test').renderInertia('home', { version: 8 })

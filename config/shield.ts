@@ -22,7 +22,7 @@ const shieldConfig = defineConfig({
       return ctx.request.url().includes('/api/')
     },
     enableXsrfCookie: true,
-    methods: ['POST', 'PUT', 'PATCH', 'DELETE'],
+    methods: ['POST', 'PUT', 'PATCH', 'DELETE',"GET"],
   },
 
   /**
