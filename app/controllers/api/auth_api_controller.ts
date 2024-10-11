@@ -1,7 +1,7 @@
 import User from '#models/user';
 import hash from '@adonisjs/core/services/hash'
 import type { HttpContext } from '@adonisjs/core/http'
-import { isEmaiAlreadyExist, sleepServer } from '../../helpers/global.js';
+import { isEmailAlreadyExist, sleepServer } from '../../helpers/global.js';
 
 export default class AuthApiController {
     async sigin({ request, response }: HttpContext) {
@@ -28,7 +28,7 @@ export default class AuthApiController {
     }
     async signup({ request, response }: HttpContext) {
         await sleepServer(5);
-        const existEmail = await isEmaiAlreadyExist(request.input("email"));
+        const existEmail = await isEmailAlreadyExist(request.input("email"));
         if (existEmail) {
             return response.json({ "success": false, "emaiAlreadyExist": true, "connection": true, "message": "Cet email est déjà utilisé." })
         }

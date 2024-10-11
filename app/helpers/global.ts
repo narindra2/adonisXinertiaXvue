@@ -10,8 +10,8 @@ export const generateFilePath = (path : string , file : string) => {
     return path + "/" + file;
 };
 
-export const isEmaiAlreadyExist = async (email : string , exludeUserID : number = 0) => {
-    const existAccount = await User.query().where('email', email).where("id" ,"<>"  ,exludeUserID ).first();
+export const isEmailAlreadyExist = async (email : string , excludeID : number = 0) => {
+    const existAccount = await User.query().where('email', email).where("id" ,"<>"  ,excludeID ).first();
     if (existAccount) {
         return true;
     }
@@ -21,4 +21,3 @@ export const isEmaiAlreadyExist = async (email : string , exludeUserID : number 
 export const sleepServer = async (secondes : number)  => {
     return await new Promise(resolve => setTimeout(resolve, secondes * 1000));
 }
-
