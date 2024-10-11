@@ -6,8 +6,8 @@ export const POST_FILES_URL = 'public/post/images';
 export const generateFileNameUsingCuid = (extension : string | undefined) => {
     return cuid() +"." + extension;
 };
-export const generateFilePath = (path : string , image : string) => {
-    return path + "/" + image;
+export const generateFilePath = (path : string , file : string) => {
+    return path + "/" + file;
 };
 
 export const isEmaiAlreadyExist = async (email : string , exludeUserID : number = 0) => {
